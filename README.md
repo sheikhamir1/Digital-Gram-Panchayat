@@ -1,3 +1,7 @@
+Look and overview 
+check the public folder you found a video of my website and overview 
+
+
 Digital E Gram Panchayat
 Overview
 The Digital E Gram Panchayat project aims to streamline the delivery of citizen services in a village by computerizing applications for gram panchayat services. The application enables users to submit and track applications for services like birth, marriage, death, and divorce certificates. Admins and staff can manage these applications and services efficiently.
