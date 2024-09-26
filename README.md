@@ -32,7 +32,7 @@ Update application statuses.
 Setup and Installation
 Clone the Repository
 
-git clone https://github.com/sheikhamir1/digital-e-gram-panchayat.git
+git clone [https://github.com/sheikhamir1/digital-e-gram-panchayat.git](https://github.com/sheikhamir1/Digital-Gram-Panchayat.git)
 
 
 Navigate to Project Directory
