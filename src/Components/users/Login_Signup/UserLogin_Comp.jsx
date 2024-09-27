@@ -23,37 +23,84 @@ const UserLogin_Comp = () => {
 
   const navigate = useNavigate();
 
+  // const onSubmit = async (data) => {
+  //   // console.log("Form data:", data);
+  //   const signin_result = await signInWithEmailAndPassword(
+  //     auth,
+  //     data.email,
+  //     data.password
+  //   );
+
+  //   // console.log(signin_result);
+
+  //   if (signin_result.user.emailVerified === true) {
+  //     console.log("email verified");
+  //     const user = await getDoc(doc(firestore, "User", signin_result.user.uid));
+  //     if (user.exists()) {
+  //       if (user.data().role === "user") {
+  //         console.log("User is an user");
+  //         window.location.replace("/userdashboard");
+  //         // navigate("/userdashboard");
+  //       } else {
+  //         console.log("User is not authorized");
+  //         navigate("/");
+  //       }
+  //     } else {
+  //       console.log("user not found");
+  //       navigate("/Usersignup");
+  //     }
+  //   } else {
+  //     console.log("email not verified please verify your email");
+  //     alert("email not verified please verify your email");
+  //   }
+
+  //   reset();
+  // };
+
   const onSubmit = async (data) => {
-    // console.log("Form data:", data);
-    const signin_result = await signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
+    try {
+      // Sign in the user with email and password
+      const signin_result = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
 
-    // console.log(signin_result);
+      // Check if email is verified
+      if (signin_result.user.emailVerified) {
+        console.log("Email verified");
 
-    if (signin_result.user.emailVerified === true) {
-      console.log("email verified");
-      const user = await getDoc(doc(firestore, "User", signin_result.user.uid));
-      if (user.exists()) {
-        if (user.data().role === "user") {
-          console.log("User is an user");
-          window.location.replace("/userdashboard");
-          // navigate("/userdashboard");
+        // Fetch the user document from Firestore
+        const userDocRef = doc(firestore, "User", signin_result.user.uid);
+        const user = await getDoc(userDocRef);
+
+        // Check if the user document exists in Firestore
+        if (user.exists()) {
+          console.log("Firestore user data:", user.data());
+
+          if (user.data().role === "user") {
+            console.log("User is a regular user");
+            window.location.replace("/userdashboard");
+          } else {
+            console.log("User is not authorized for this section");
+            navigate("/");
+          }
         } else {
-          console.log("User is not authorized");
-          navigate("/");
+          // If no user document found
+          console.log("User document not found in Firestore");
+          alert("User document not found, please sign up first.");
+          navigate("/Usersignup");
         }
       } else {
-        console.log("user not found");
-        navigate("/Usersignup");
+        console.log("Email not verified. Please verify your email.");
+        alert("Email not verified, please verify your email.");
       }
-    } else {
-      console.log("email not verified please verify your email");
-      alert("email not verified please verify your email");
+    } catch (error) {
+      console.log("Error during sign-in:", error);
+      alert("Error during sign-in. Please try again.");
     }
 
+    // Reset form fields after submission
     reset();
   };
 

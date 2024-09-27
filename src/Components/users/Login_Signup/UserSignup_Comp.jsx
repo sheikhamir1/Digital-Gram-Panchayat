@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signOut,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { auth } from "../../FireasbeConfig";
@@ -16,6 +17,7 @@ const UserSignup_Comp = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    resetFields,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -29,6 +31,8 @@ const UserSignup_Comp = () => {
 
       // Log the signup result
       console.log("signup_result", signup_result);
+      alert("User signed up successfully please verify your email");
+      reset();
 
       // Send email verification
       await sendEmailVerification(signup_result.user);
@@ -46,6 +50,14 @@ const UserSignup_Comp = () => {
     } catch (error) {
       console.log("Error during signup:", error);
     }
+
+    // Sign out the user immediately after signup
+    await signOut(auth);
+    console.log(
+      "User signed out after signup to enforce email verification then Login"
+    );
+
+    window.location.replace("/userlogin");
 
     // Optional: Reset the form after submission
     reset();
