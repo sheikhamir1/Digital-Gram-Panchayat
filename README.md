@@ -32,7 +32,7 @@ Update application statuses.
 Setup and Installation
 Clone the Repository
 
-git clone https://github.com/your-username/digital-e-gram-panchayat.git
+git clone [https://github.com/sheikhamir1/digital-e-gram-panchayat.git](https://github.com/sheikhamir1/Digital-Gram-Panchayat.git)
 
 
 Navigate to Project Directory
@@ -49,7 +49,6 @@ Start the Development Server
 
 
 npm start
-Visit http://localhost:3000 in your browser to view the application.
 
 Configuration
 Firebase Configuration: Make sure to set up your Firebase project with authentication, Firestore, and storage. Update the firebaseConfig object in src/FireasbeConfig.js with your Firebase project credentials.
